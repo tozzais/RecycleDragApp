@@ -76,29 +76,28 @@ public class SPUtils {
 
     public List<GridItemBean> getAllData() {
         List<GridItemBean> tabItems = new ArrayList<>();
-//        ArrayList<GridItemBean> list1 = new ArrayList<>();
-//        ArrayList<GridItemBean> list11 = new ArrayList<>();
-//        list11.add(new GridItemBean("代办事项", false, "icon_home_selected"));
-//        list11.add(new GridItemBean("服务请求", false, "icon_home_selected"));
-//        list11.add(new GridItemBean("我的客户", false, "icon_home_selected"));
-//        list1.add(new GridItemBean("工作台", list11));
-//        ArrayList<GridItemBean> list12 = new ArrayList<>();
-//        list12.add(new GridItemBean("服务请求管理", false, "icon_home_selected"));
-//        list12.add(new GridItemBean("在线咨询", false, "icon_home_selected"));
-//        list12.add(new GridItemBean("留言管理", false, "icon_home_selected"));
-//        list12.add(new GridItemBean("任务分配", false, "icon_home_selected"));
-//        list1.add(new GridItemBean("服务台", list12));
-//        ArrayList<GridItemBean> list13 = new ArrayList<>();
-//        list13.add(new GridItemBean("事件管理", false, "icon_home_selected"));
-//        list13.add(new GridItemBean("问题管理", false, "icon_home_selected"));
-//        list13.add(new GridItemBean("变更管理", false, "icon_home_selected"));
-//        list13.add(new GridItemBean("交付管理", false, "icon_home_selected"));
-//        list13.add(new GridItemBean("发布管理", false, "icon_home_selected"));
-//        list13.add(new GridItemBean("安全管理", false, "icon_home_selected"));
-//        list13.add(new GridItemBean("服务报告", false, "icon_home_selected"));
-//        list1.add(new GridItemBean("运维管理", list13));
-//        //添加运维管理
-//        tabItems.add(new GridItemBean("运维管理", list1));
+        ArrayList<GridItemBean> list1 = new ArrayList<>();
+
+        list1.add(new GridItemBean("工作台"));
+        list1.add(new GridItemBean("代办事项", false, "icon_home_selected"));
+        list1.add(new GridItemBean("服务请求", false, "icon_home_selected"));
+        list1.add(new GridItemBean("我的客户", false, "icon_home_selected"));
+        list1.add(new GridItemBean("服务台"));
+        list1.add(new GridItemBean("服务请求管理", false, "icon_home_selected"));
+        list1.add(new GridItemBean("在线咨询", false, "icon_home_selected"));
+        list1.add(new GridItemBean("留言管理", false, "icon_home_selected"));
+        list1.add(new GridItemBean("任务分配", false, "icon_home_selected"));
+        list1.add(new GridItemBean("运维管理"));
+        list1.add(new GridItemBean("事件管理", false, "icon_home_selected"));
+        list1.add(new GridItemBean("问题管理", false, "icon_home_selected"));
+        list1.add(new GridItemBean("变更管理", false, "icon_home_selected"));
+        list1.add(new GridItemBean("交付管理", false, "icon_home_selected"));
+        list1.add(new GridItemBean("发布管理", false, "icon_home_selected"));
+        list1.add(new GridItemBean("安全管理", false, "icon_home_selected"));
+        list1.add(new GridItemBean("服务报告", false, "icon_home_selected"));
+
+        //添加运维管理
+        tabItems.add(new GridItemBean("运维管理", list1));
 
 //        ArrayList<GridItemBean> list2 = new ArrayList<>();
 //        list2.add(new GridItemBean("堤防监控", false, "icon_home_selected"));
@@ -151,7 +150,7 @@ public class SPUtils {
     public void saveAllFunctionWithState(List<GridItemBean> allData) {
         Gson gson = new Gson();
         Log.e("TAG", gson.toJson(allData));
-//        sp.edit().putString("allData", gson.toJson(allData)).apply();
+        sp.edit().putString("allData", gson.toJson(allData)).apply();
     }
 
 }

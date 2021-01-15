@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="巡检巡查"
             android:textColor="#333333"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -32,14 +32,14 @@
             android:layout_height="wrap_content"
             android:text="已选"
             android:textColor="#333333"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="(按住可拖动调整顺序)"
             android:textColor="#808080"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:text="全部"
             android:textColor="#333333"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView

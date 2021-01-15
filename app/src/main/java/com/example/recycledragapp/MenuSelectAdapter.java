@@ -44,7 +44,7 @@ public class MenuSelectAdapter extends RecyclerView.Adapter<MenuSelectAdapter.Vi
         final int index = position;
         GridItemBean fi = data.get(position);
         setImage(fi.imageUrl, holder.iv);
-        holder.text.setText(fi.name);
+        holder.text.setText(fi.Name);
         holder.btn.setImageResource(R.drawable.ic_block_delete);
         holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override

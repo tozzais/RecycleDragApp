@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MenuRelativeView extends RelativeLayout {
 
@@ -52,19 +51,41 @@ public class MenuRelativeView extends RelativeLayout {
 
     private GridItemBean itemBean;
 
-    public void setData(GridItemBean itemBean) {
+    public void setData(final GridItemBean itemBean) {
+        this.itemBean = itemBean;
+        tv_name.setText(itemBean.Name);
 
-        ArrayList<GridItemBean> allItems = this.itemBean.getAllItems();
-        allItems.clear();
-        allItems.addAll(itemBean.getAllItems());
+        if (menuSelectAdapter == null){
+            menuSelectAdapter = new MenuSelectAdapter(context, itemBean.getSelectItems());
+            rv_select.setLayoutManager(new GridLayoutManager(context, 4));
+            rv_select.setAdapter(menuSelectAdapter);
+            rv_select.addItemDecoration(new SpaceDecoration(4, dip2px( 1)));
 
-        ArrayList<GridItemBean> selectItems = this.itemBean.getSelectItems();
-        selectItems.clear();
-        selectItems.addAll(itemBean.getSelectItems());
+            DefaultItemCallback callback = new DefaultItemCallback(menuSelectAdapter);
+            ItemTouchHelper helper = new ItemTouchHelper(callback);
+            helper.attachToRecyclerView(rv_select);
 
-        tv_name.setText(itemBean.name);
-        menuSelectAdapter.notifyDataSetChanged();
-        menuAdapter.notifyDataSetChanged();
+            GridLayoutManager gridManager = new GridLayoutManager(context, 4);
+            gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    GridItemBean fi = itemBean.getAllItems().get(position);
+                    // 因为分成了 4份。1代表1份  4代表4份。所有不是功能菜单的时候占4 返回一整行
+                    return fi.status == 1 ? 1 : 4;
+                }
+            });
+
+            menuAdapter = new MenuAdapter(context,  itemBean.getAllItems());
+            rv_all.setLayoutManager(gridManager);
+            rv_all.setAdapter(menuAdapter);
+            SpaceDecoration spaceDecoration = new SpaceDecoration(4, dip2px( 1));
+            rv_all.addItemDecoration(spaceDecoration);
+            addListener();
+        }else {
+            menuSelectAdapter.notifyDataSetChanged();
+            menuAdapter.notifyDataSetChanged();
+        }
+
 
     }
 
@@ -85,31 +106,7 @@ public class MenuRelativeView extends RelativeLayout {
         rv_all = (RecyclerView) view.findViewById(R.id.rv_all);
         tv_name = (TextView) view.findViewById(R.id.tv_name);
 
-        menuSelectAdapter = new MenuSelectAdapter(context, itemBean.getSelectItems());
-        rv_select.setLayoutManager(new GridLayoutManager(context, 4));
-        rv_select.setAdapter(menuSelectAdapter);
-        rv_select.addItemDecoration(new SpaceDecoration(4, dip2px( 1)));
 
-        DefaultItemCallback callback = new DefaultItemCallback(menuSelectAdapter);
-        ItemTouchHelper helper = new ItemTouchHelper(callback);
-        helper.attachToRecyclerView(rv_select);
-
-        GridLayoutManager gridManager = new GridLayoutManager(context, 4);
-        gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                GridItemBean fi = itemBean.getAllItems().get(position);
-                return fi.status == 1 ? 1 : 4;
-            }
-        });
-
-        menuAdapter = new MenuAdapter(context,  itemBean.getAllItems());
-        rv_all.setLayoutManager(gridManager);
-        rv_all.setAdapter(menuAdapter);
-        SpaceDecoration spaceDecoration = new SpaceDecoration(4, dip2px( 1));
-        rv_all.addItemDecoration(spaceDecoration);
-
-        addListener();
         addView(view);
     }
 
@@ -138,11 +135,11 @@ public class MenuRelativeView extends RelativeLayout {
             public void remove(GridItemBean item) {
                 // 更新所有列表，选择列表已在内部进行更新
                 try {
-                    if (item != null && item.name != null) {
+                    if (item != null && item.Name != null) {
                         for (int i = 0; i <  itemBean.getAllItems().size(); i++) {
                             GridItemBean data =  itemBean.getAllItems().get(i);
-                            if (data != null && data.name != null) {
-                                if (item.name.equals(data.name)) {
+                            if (data != null && data.Name != null) {
+                                if (item.Name.equals(data.Name)) {
                                     data.isSelect = false;
                                     break;
                                 }
@@ -153,7 +150,6 @@ public class MenuRelativeView extends RelativeLayout {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }

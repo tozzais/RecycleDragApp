@@ -103,11 +103,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void remove(GridItemBean item) {
                 // 更新所有列表，选择列表已在内部进行更新
                 try {
-                    if (item != null && item.name != null) {
+                    if (item != null && item.Name != null) {
                         for (int i = 0; i < allData.size(); i++) {
                             GridItemBean data = allData.get(i);
-                            if (data != null && data.name != null) {
-                                if (item.name.equals(data.name)) {
+                            if (data != null && data.Name != null) {
+                                if (item.Name.equals(data.Name)) {
                                     data.isSelect = false;
                                     break;
                                 }

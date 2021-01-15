@@ -47,15 +47,15 @@ public class MenuAdapter extends RecyclerView.Adapter {
         GridItemBean functionItem = data.get(position);
         if (0 == getItemViewType(position)) {
             TitleViewHolder holder = (TitleViewHolder) viewHolder;
-            holder.text.setText(functionItem.name);
+            holder.text.setText(functionItem.Name);
         }else if (2 == getItemViewType(position)) {
             SecondTitleViewHolder holder = (SecondTitleViewHolder) viewHolder;
-            holder.text.setText(functionItem.name);
+            holder.text.setText(functionItem.Name);
         } else {
             final int index = position;
             FunctionViewHolder holder = (FunctionViewHolder) viewHolder;
             setImage(functionItem.imageUrl,holder.iv);
-            holder.text.setText(functionItem.name);
+            holder.text.setText(functionItem.Name);
             holder.btn.setImageResource(functionItem.isSelect ? R.drawable.ic_block_selected : R.drawable.ic_block_add);
             holder.btn.setOnClickListener(new View.OnClickListener() {
                 @Override
