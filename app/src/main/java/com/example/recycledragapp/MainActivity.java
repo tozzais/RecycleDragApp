@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sfUtils  = new SPUtils(this);
         allData = sfUtils.getShowData();
 
-        final MyAdapter myAdapter = new MyAdapter(this, allData);
+        final EditAdapter myAdapter = new EditAdapter(this, allData);
         rv_select.setLayoutManager(new LinearLayoutManager(this));
         rv_select.setAdapter(myAdapter);
 

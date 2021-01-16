@@ -14,13 +14,13 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class MyAdapter extends RecyclerView.Adapter {
+public class EditAdapter extends RecyclerView.Adapter {
 
     private List<GridItemBean> data = new ArrayList<>();
 
     private LayoutInflater inflater;
 
-    public MyAdapter(Context context, @NonNull List<GridItemBean> data) {
+    public EditAdapter(Context context, @NonNull List<GridItemBean> data) {
         if (data != null) {
             this.data = data;
         }

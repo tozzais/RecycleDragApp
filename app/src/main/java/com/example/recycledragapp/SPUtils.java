@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -24,48 +25,6 @@ public class SPUtils {
     public SPUtils(Context context) {
         sp = context.getSharedPreferences(menu_name, Context.MODE_PRIVATE);
     }
-
-    public List<GridItemBean> getAllFunctionWithState() {
-        String allData = sp.getString("allData", "");
-        List<GridItemBean> functionItems = new ArrayList<>();
-        List<GridItemBean> tabItems = getNetData();
-        if("".equals(allData)){
-        for (int i = 0; i < tabItems.size(); i++) {
-            GridItemBean functionItem1 = tabItems.get(i);
-            //添加一级标题
-            GridItemBean functionItem = new GridItemBean(functionItem1.getName(), 0);
-            functionItems.add(functionItem);
-            for (GridItemBean item : functionItem1.getItem() ) {
-                if (item.getItem() != null){
-                    //有三级 添加二级标题和数据
-                    functionItems.add(new GridItemBean(item.getName(),2));
-                    functionItems.addAll(item.getItem());
-                }else {
-                    functionItems.add(item);
-                }
-            }
-        }}else{
-            Gson gson = new Gson();
-            functionItems =  gson.fromJson(allData,new TypeToken<List<GridItemBean>>(){}.getType());
-        }
-        return functionItems;
-    }
-
-    public List<GridItemBean> getData() {
-        String allData = sp.getString(data_cache, "");
-        Log.e("存储的数据",allData);
-        List<GridItemBean> functionItems = new ArrayList<>();
-        if("".equals(allData)){
-            functionItems = getNetData();
-        }else{
-            Gson gson = new Gson();
-            functionItems =  gson.fromJson(allData,new TypeToken<List<GridItemBean>>(){}.getType());
-        }
-        return functionItems;
-    }
-
-
-
     public List<GridItemBean> getShowData(){
         String allData = sp.getString(data_cache, "");
         Log.e("存储的数据",allData);
@@ -106,9 +65,12 @@ public class SPUtils {
                 }
             }
         }
-        return s1;
+        char[] chars = s1.toCharArray();
+        Arrays.sort(chars);
+        return new String(chars);
     }
-
+//上事事交交付付件件任位位位信信全全划务务务单单发发发受变变台告告堤堤处备备子子子子子子安安实岸巡巡工工布布布应急息息息情情情情抢抢抢报报报报报报报控控控改改文施施施更更服服查查案案案档检段气水汛汛沿测测测消演潮理理理理理理理理理理理理理理理监监监监监监监目目督确程程管管管管管管管管管管管管管管系系系系系系线练组织结络统统统统统统统统统维维网置表表表视警警计计计计认设设设设询象运运造造问问防防防防防险险险险险险险险项项预预预预频题题风
+//上事事交交付付件件任位位位信信全全划务务务单单发发发受变变台告告堤堤处备备子子子子子子安安实岸巡巡工工布布布应急息息息情情情情抢抢抢报报报报报报报控控控改改文施施施更更服服查查案案案档检段气水汛汛沿测测测消演潮理理理理理理理理理理理理理理理监监监监监监监目目督确程程管管管管管管管管管管管管管管系系系系系系线练组织结络统统统统统统统统统维维网置表表表视警警计计计计认设设设设询象运运造造问问防防防防防险险险险险险险险项项预预预预频题题风
 
     public List<GridItemBean> getNetData() {
         List<GridItemBean> tabItems = new ArrayList<>();
