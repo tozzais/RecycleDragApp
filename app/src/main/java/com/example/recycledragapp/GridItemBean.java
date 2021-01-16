@@ -15,41 +15,55 @@ public class GridItemBean {
     public int status = 1;
 
     //全部的菜单（目前只有两级 和三级）
-    private ArrayList<GridItemBean> allItems;
+    private ArrayList<GridItemBean> Item;
     //已选中的菜单
     private ArrayList<GridItemBean> selectItems = new ArrayList<>();
 
 
     public GridItemBean() {
+
     }
 
     public GridItemBean(String name){
         this.Name = name;
-        this.status = 2;
     }
 
+    /**
+     * 区分标题
+     * @param name
+     * @param status
+     */
     public GridItemBean(String name, int status){
         this.Name = name;
         this.status = status;
     }
 
 
-    public GridItemBean(String name, boolean isSelect, String imageUrl) {
+    /**
+     * 添加本地图片使用
+     * @param name
+     * @param imageUrl
+     */
+    public GridItemBean(String name, String imageUrl) {
         this.Name = name;
-        this.isSelect = isSelect;
         this.imageUrl = imageUrl;
         this.status = 1;
     }
 
 
+    /**
+     * 模拟数据使用
+     * @param tabName
+     * @param functionItems
+     */
     public GridItemBean(String tabName, ArrayList<GridItemBean> functionItems) {
         this.Name = tabName;
-        this.allItems = functionItems;
+        this.Item = functionItems;
     }
 
 
-    public void setAllItems(ArrayList<GridItemBean> allItems) {
-        this.allItems = allItems;
+    public void setItem(ArrayList<GridItemBean> item) {
+        this.Item = item;
     }
 
     public void setSelectItems(ArrayList<GridItemBean> selectItems) {
@@ -62,8 +76,8 @@ public class GridItemBean {
     }
 
 
-    public ArrayList<GridItemBean> getAllItems() {
-        return allItems;
+    public ArrayList<GridItemBean> getItem() {
+        return Item;
     }
 
 

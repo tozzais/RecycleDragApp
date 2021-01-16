@@ -1,16 +1,16 @@
 package com.example.recycledragapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -19,10 +19,8 @@ public class MyAdapter extends RecyclerView.Adapter {
     private List<GridItemBean> data = new ArrayList<>();
 
     private LayoutInflater inflater;
-    private Context context;
 
     public MyAdapter(Context context, @NonNull List<GridItemBean> data) {
-        this.context = context;
         if (data != null) {
             this.data = data;
         }
@@ -37,10 +35,34 @@ public class MyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, int position) {
         GridItemBean functionItem = data.get(position);
         TitleViewHolder holder = (TitleViewHolder) viewHolder;
-        holder.text.setData(functionItem);
+        holder.menuRelativeView.setData(functionItem);
+        holder.menuRelativeView.setOnChangePositionListener(new MenuRelativeView.OnChangePositionListener() {
+            @Override
+            public void onUp() {
+                int location = viewHolder.getLayoutPosition();
+                Log.e("position",location+"");
+                if (location>0){
+                   change(location,location-1);
+                }
+            }
+
+            @Override
+            public void onDown() {
+                //移除后使用新的position
+                int location = viewHolder.getLayoutPosition();
+                Log.e("position",location+"");
+                if (location<getItemCount()-1){
+                    change(location,location+1);
+                }
+            }
+        });
+    }
+    private void change(int fromPosition,int targetPosition){
+        Collections.swap(data, fromPosition, targetPosition);
+        notifyItemMoved(fromPosition, targetPosition);
     }
 
 
@@ -57,11 +79,11 @@ public class MyAdapter extends RecyclerView.Adapter {
 
     private class TitleViewHolder extends RecyclerView.ViewHolder {
 
-        private MenuRelativeView text;
+        private MenuRelativeView menuRelativeView;
 
         public TitleViewHolder(View itemView) {
             super(itemView);
-            text = (MenuRelativeView) itemView.findViewById(R.id.menu_view);
+            menuRelativeView =  itemView.findViewById(R.id.menu_view);
         }
     }
 }

@@ -15,9 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 
-
-
-
 public class MenuSelectAdapter extends RecyclerView.Adapter<MenuSelectAdapter.ViewHolder> implements OnItemTouchListener {
 
     private List<GridItemBean> data = new ArrayList<>();
