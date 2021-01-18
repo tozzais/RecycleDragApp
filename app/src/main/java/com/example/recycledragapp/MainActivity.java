@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sfUtils.saveAllFunctionWithState(allData);
+                sfUtils.saveMenuData(allData);
             }
         });
 

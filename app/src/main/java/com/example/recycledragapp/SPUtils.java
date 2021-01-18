@@ -27,7 +27,6 @@ public class SPUtils {
     }
     public List<GridItemBean> getShowData(){
         String allData = sp.getString(data_cache, "");
-        Log.e("存储的数据",allData);
         List<GridItemBean> localDates;
         //如果本地没有 整理数据
         List<GridItemBean> netDates = getNetData();
@@ -40,10 +39,10 @@ public class SPUtils {
             // 比对
             String s1 = getLabel(localDates);
             String s2 = getLabel(netDates);
-            Log.e("存储的数据","s1="+s1+"\ns2="+s2);
             if (s1.equals(s2)){
                 return localDates;
             }else {
+                saveMenuData(netDates);
                 return netDates;
             }
         }
@@ -108,6 +107,7 @@ public class SPUtils {
         list5.add(new GridItemBean("统计报表"));
         tabItems.add(new GridItemBean("工程档案子系统", list5));
         ArrayList<GridItemBean> list6 = new ArrayList<>();
+        list6.add(new GridItemBean("统计报表"));
         list6.add(new GridItemBean("应急预案"));
         list6.add(new GridItemBean("监测预警"));
         list6.add(new GridItemBean("潮位预报"));
@@ -121,7 +121,7 @@ public class SPUtils {
         list6.add(new GridItemBean("险情结案"));
         list6.add(new GridItemBean("防汛演练"));
         list6.add(new GridItemBean("抢险查询"));
-        list6.add(new GridItemBean("统计报表"));
+
         tabItems.add(new GridItemBean("防汛抢险子系统", list6));
 
         //数据清洗
@@ -150,10 +150,9 @@ public class SPUtils {
     }
 
 
-    public void saveAllFunctionWithState(List<GridItemBean> allData) {
+    public void saveMenuData(List<GridItemBean> allData) {
         Gson gson = new Gson();
-        Log.e("TAG", gson.toJson(allData));
-        sp.edit().putString("allData", gson.toJson(allData)).apply();
+        sp.edit().putString(data_cache, gson.toJson(allData)).apply();
     }
 
 }

@@ -1,7 +1,6 @@
 package com.example.recycledragapp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity1 extends AppCompatActivity implements View.OnClickListener {
+public class SubMainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView rv_select;
 
@@ -33,25 +32,23 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
     }
 
     private void initData() {
-        Log.e("TAG","1234567");
         sfUtils  = new SPUtils(this);
 //        allData = sfUtils.getShowData();
         List<GridItemBean> showData = sfUtils.getShowData();
         //一级
         for (GridItemBean item1:showData) {
-            allData.add(new GridItemBean(item1.getName(),0));
-            //二级
-            ArrayList<GridItemBean> list2 = item1.getItem();
-            for (GridItemBean item2 : list2) {
-                ArrayList<GridItemBean> list3 = item2.getItem();
-                if (list3 != null && list3.size()>0){
-                    //三级菜单
-                    allData.add(new GridItemBean(item2.getName(),2));
-                    allData.addAll(list3);
-                }else {
-                    //两级菜单
-                    allData.addAll(list2);
-                    break;
+            if ("防汛抢险子系统".equals(item1.getName())){
+                ArrayList<GridItemBean> list2 = item1.isSelectMenu()?item1.getSelectItems():item1.getItem();
+                for (GridItemBean item2 : list2) {
+                    ArrayList<GridItemBean> list3 = item2.getItem();
+                    if (list3 != null && list3.size()>0){
+                        //三级菜单
+                        allData.addAll(list3);
+                    }else {
+                        //两级菜单
+                        allData.addAll(list2);
+                        break;
+                    }
                 }
             }
         }

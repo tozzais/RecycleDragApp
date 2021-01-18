@@ -85,5 +85,9 @@ public class GridItemBean {
         return selectItems;
     }
 
+    public boolean isSelectMenu(){
+        return selectItems != null && selectItems.size()>0;
+    }
+
 
 }
