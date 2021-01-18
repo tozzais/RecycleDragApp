@@ -69,8 +69,6 @@ public class SPUtils {
         Arrays.sort(chars);
         return new String(chars);
     }
-//上事事交交付付件件任位位位信信全全划务务务单单发发发受变变台告告堤堤处备备子子子子子子安安实岸巡巡工工布布布应急息息息情情情情抢抢抢报报报报报报报控控控改改文施施施更更服服查查案案案档检段气水汛汛沿测测测消演潮理理理理理理理理理理理理理理理监监监监监监监目目督确程程管管管管管管管管管管管管管管系系系系系系线练组织结络统统统统统统统统统维维网置表表表视警警计计计计认设设设设询象运运造造问问防防防防防险险险险险险险险项项预预预预频题题风
-//上事事交交付付件件任位位位信信全全划务务务单单发发发受变变台告告堤堤处备备子子子子子子安安实岸巡巡工工布布布应急息息息情情情情抢抢抢报报报报报报报控控控改改文施施施更更服服查查案案案档检段气水汛汛沿测测测消演潮理理理理理理理理理理理理理理理监监监监监监监目目督确程程管管管管管管管管管管管管管管系系系系系系线练组织结络统统统统统统统统统维维网置表表表视警警计计计计认设设设设询象运运造造问问防防防防防险险险险险险险险项项预预预预频题题风
 
     public List<GridItemBean> getNetData() {
         List<GridItemBean> tabItems = new ArrayList<>();
@@ -125,27 +123,26 @@ public class SPUtils {
         list6.add(new GridItemBean("抢险查询"));
         list6.add(new GridItemBean("统计报表"));
         tabItems.add(new GridItemBean("防汛抢险子系统", list6));
+
         //数据清洗
         for (GridItemBean list01:tabItems) {
             //标题
             list01.status = 0;
             for (GridItemBean list02 : list01.getItem() ) {
-
                 ArrayList<GridItemBean> list03 = list02.getItem();
                 if (list03 != null && list03.size()>0){
                     //三级菜单
                     list02.status = 2;
-
                     for (GridItemBean g:list03) {
                         //功能页
                         g.imageUrl = "icon_home_selected";
                         g.status = 1;
                     }
                     list01.getItem().addAll(list03);
+                    list02.setItem(null);
                 }else {
                     //两级菜单
                     list02.imageUrl = "icon_home_selected";
-                    list02.status = 1;
                 }
             }
         }

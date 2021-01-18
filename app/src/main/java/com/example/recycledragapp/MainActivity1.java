@@ -1,6 +1,7 @@
 package com.example.recycledragapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -33,14 +34,9 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
     }
 
     private void initData() {
-
-    }
-
-
-    public void init() {
-        getSupportActionBar().hide();
-
+        Log.e("TAG","1234567");
         sfUtils  = new SPUtils(this);
+//        allData = sfUtils.getShowData();
         List<GridItemBean> showData = sfUtils.getShowData();
         //一级
         for (GridItemBean item1:showData) {
@@ -56,9 +52,15 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
                 }else {
                     //两级菜单
                     allData.addAll(list2);
+                    break;
                 }
             }
         }
+    }
+
+
+    public void init() {
+        getSupportActionBar().hide();
 
         final ShowAdapter myAdapter = new ShowAdapter(this, allData);
         GridLayoutManager gridManager = new GridLayoutManager(this, 4);
