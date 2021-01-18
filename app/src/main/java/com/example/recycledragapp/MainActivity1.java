@@ -41,9 +41,9 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
         for (GridItemBean item1:showData) {
             allData.add(new GridItemBean(item1.getName(),0));
             //二级
-            ArrayList<GridItemBean> list2 = item1.getItem();
+            List<GridItemBean> list2 = item1.getItem();
             for (GridItemBean item2 : list2) {
-                ArrayList<GridItemBean> list3 = item2.getItem();
+                List<GridItemBean> list3 = item2.getItem();
                 if (list3 != null && list3.size()>0){
                     //三级菜单
                     allData.add(new GridItemBean(item2.getName(),2));

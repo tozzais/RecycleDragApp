@@ -38,9 +38,9 @@ public class SubMainActivity extends AppCompatActivity implements View.OnClickLi
         //一级
         for (GridItemBean item1:showData) {
             if ("防汛抢险子系统".equals(item1.getName())){
-                ArrayList<GridItemBean> list2 = item1.isSelectMenu()?item1.getSelectItems():item1.getItem();
+                List<GridItemBean> list2 = item1.isSelectMenu()?item1.getSelectItems():item1.getItem();
                 for (GridItemBean item2 : list2) {
-                    ArrayList<GridItemBean> list3 = item2.getItem();
+                    List<GridItemBean> list3 = item2.getItem();
                     if (list3 != null && list3.size()>0){
                         //三级菜单
                         allData.addAll(list3);

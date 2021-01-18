@@ -2,7 +2,6 @@ package com.example.recycledragapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -57,7 +56,7 @@ public class SPUtils {
         while (!queue.isEmpty()){
             GridItemBean poll = queue.poll();
             s1 = s1+poll.getName();
-            ArrayList<GridItemBean> item = poll.getItem();
+            List<GridItemBean> item = poll.getItem();
             if (item != null && item.size()>0){
                 for (GridItemBean gridItemBean:item){
                     queue.add(gridItemBean);
@@ -81,6 +80,8 @@ public class SPUtils {
         list11.add(new GridItemBean("安全管理"));
         list11.add(new GridItemBean("服务报告"));
         list1.add(new GridItemBean("运维管理",list11));
+        list1.add(new GridItemBean("工作台"));
+        list1.add(new GridItemBean("服务台",list11));
         //添加运维管理
         tabItems.add(new GridItemBean("运维管理子系统", list1));
         ArrayList<GridItemBean> list2 = new ArrayList<>();
@@ -123,33 +124,47 @@ public class SPUtils {
         list6.add(new GridItemBean("抢险查询"));
 
         tabItems.add(new GridItemBean("防汛抢险子系统", list6));
+        return cleanData(tabItems);
+    }
 
+    /**
+     * 整理数据 整理成能用的数据格式
+     * @param tabItems
+     * @return
+     */
+    private List<GridItemBean> cleanData(List<GridItemBean> tabItems){
+        List<GridItemBean> showDataList = new ArrayList<>();
         //数据清洗
         for (GridItemBean list01:tabItems) {
             //标题
-            list01.status = 0;
-            for (GridItemBean list02 : list01.getItem() ) {
-                ArrayList<GridItemBean> list03 = list02.getItem();
+            GridItemBean gridItemBean = new GridItemBean(list01.getName(), 0);
+            List<GridItemBean> secondList = new ArrayList<>();
+            for (GridItemBean list02 : list01.getItem()) {
+                List<GridItemBean> list03 = list02.getItem();
                 if (list03 != null && list03.size()>0){
                     //三级菜单
-                    list02.status = 2;
+                    secondList.add(new GridItemBean(list02.getName(),2));
                     for (GridItemBean g:list03) {
-                        //功能页
+                        //重新赋值本地图标
                         g.imageUrl = "icon_home_selected";
-                        g.status = 1;
                     }
-                    list01.getItem().addAll(list03);
-                    list02.setItem(null);
+                    secondList.addAll(list03);
                 }else {
                     //两级菜单
-                    list02.imageUrl = "icon_home_selected";
+                    secondList.add(new GridItemBean(list02.getName(),"icon_home_selected"));
                 }
             }
+            gridItemBean.setItem(secondList);
+            showDataList.add(gridItemBean);
         }
-        return tabItems;
+        return showDataList;
     }
 
 
+    /**
+     * 保存所有数据
+     * @param allData
+     */
     public void saveMenuData(List<GridItemBean> allData) {
         Gson gson = new Gson();
         sp.edit().putString(data_cache, gson.toJson(allData)).apply();

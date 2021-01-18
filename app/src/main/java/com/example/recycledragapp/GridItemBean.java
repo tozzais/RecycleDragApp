@@ -1,7 +1,11 @@
 package com.example.recycledragapp;
 
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * 既是 一级菜单 也是功能页
+ */
 public class GridItemBean {
 
 
@@ -11,13 +15,13 @@ public class GridItemBean {
     public String Name;
 
     public String imageUrl = "";
-    //0  是标题 1 gridview 2 小标题
+    //0  是标题 1 工程 2 小标题
     public int status = 1;
 
     //全部的菜单（目前只有两级 和三级）
-    private ArrayList<GridItemBean> Item;
+    private List<GridItemBean> Item;
     //已选中的菜单
-    private ArrayList<GridItemBean> selectItems = new ArrayList<>();
+    private List<GridItemBean> selectItems = new ArrayList<>();
 
 
     public GridItemBean() {
@@ -62,11 +66,11 @@ public class GridItemBean {
     }
 
 
-    public void setItem(ArrayList<GridItemBean> item) {
+    public void setItem(List<GridItemBean> item) {
         this.Item = item;
     }
 
-    public void setSelectItems(ArrayList<GridItemBean> selectItems) {
+    public void setSelectItems(List<GridItemBean> selectItems) {
         this.selectItems = selectItems;
     }
 
@@ -76,15 +80,19 @@ public class GridItemBean {
     }
 
 
-    public ArrayList<GridItemBean> getItem() {
+    public List<GridItemBean> getItem() {
         return Item;
     }
 
 
-    public ArrayList<GridItemBean> getSelectItems() {
+    public List<GridItemBean> getSelectItems() {
         return selectItems;
     }
 
+    /**
+     * 是否有选择的功能页
+     * @return
+     */
     public boolean isSelectMenu(){
         return selectItems != null && selectItems.size()>0;
     }
